@@ -6,31 +6,52 @@ import com.itmuch.contentcenter.domain.dto.content.ShareDTO;
 import com.itmuch.contentcenter.domain.dto.user.UserDTO;
 import com.itmuch.contentcenter.domain.entity.content.Share;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor(onConstructor = @__(@Autowired))
 public class ShareService {
     private final ShareMapper shareMapper;
     private final RestTemplate restTemplate;
 
+    private final DiscoveryClient discoveryClient;
+
 
     public ShareDTO findById(Integer id) {
         //获取分享详情
         Share share = this.shareMapper.selectByPrimaryKey(id);
         // 发布人的id
-        Integer UserId = share.getUserId();
+        Integer userId = share.getUserId();
         // 怎么调用用户微服务的/users/{userid}??
 
         RestTemplate restTemplate = new RestTemplate();
+        //强调
+        //了解stream->Java 8
+        // lambda 表达式
+        //functional 函数表达式
+        // 用户中心所有实例的信息
+        List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
+        String targetURL=instances.stream()
+                .map(instance->instance.getUri().toString()+"/users/{id}")
+                .findFirst()
+                .orElseThrow(()->new IllegalArgumentException("当前没有实例对象"));
+
+        log.info("请求的目标地址:{}}",targetURL);
+//        RestTemplate restTemplate = new RestTemplate();
         // 用HTTP GET方法去请求，并且返回一个对象
         UserDTO userDTO = this.restTemplate.getForObject(
-                "http://localhost:8080/users/{id}",
-                UserDTO.class, UserId
+                targetURL,
+                UserDTO.class,userId
         );
 
 
