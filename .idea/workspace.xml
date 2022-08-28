@@ -114,7 +114,7 @@
       <workItem from="1661676941902" duration="3518000" />
       <workItem from="1661680539569" duration="149000" />
       <workItem from="1661680769685" duration="1372000" />
-      <workItem from="1661682789303" duration="5418000" />
+      <workItem from="1661682789303" duration="5754000" />
     </task>
     <task id="LOCAL-00001" summary="2.11-12 已经创建完项目并且完成了初步的mybatis自动化了">
       <created>1661680389510</created>
@@ -137,7 +137,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661691999752</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="为内容中心引入服务发现">
+      <created>1661692521011</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1661692521011</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -147,6 +154,7 @@
     <MESSAGE value="2.11-12 已经创建完项目并且完成了初步的mybatis自动化了" />
     <MESSAGE value="填写用户微服务和内容微服务-完成" />
     <MESSAGE value="将应用注册到nacos-完结" />
-    <option name="LAST_COMMIT_MESSAGE" value="将应用注册到nacos-完结" />
+    <MESSAGE value="为内容中心引入服务发现" />
+    <option name="LAST_COMMIT_MESSAGE" value="为内容中心引入服务发现" />
   </component>
 </project>

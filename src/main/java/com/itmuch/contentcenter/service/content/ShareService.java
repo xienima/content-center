@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -41,13 +43,14 @@ public class ShareService {
         //functional 函数表达式
         // 用户中心所有实例的信息
         List<ServiceInstance> instances = discoveryClient.getInstances("user-center");
-        String targetURL=instances.stream()
+        List<String> targetURLS =instances.stream()
                 .map(instance->instance.getUri().toString()+"/users/{id}")
-                .findFirst()
-                .orElseThrow(()->new IllegalArgumentException("当前没有实例对象"));
+                .collect(Collectors.toList());
 
-        log.info("请求的目标地址:{}}",targetURL);
-//        RestTemplate restTemplate = new RestTemplate();
+        int i = ThreadLocalRandom.current().nextInt(targetURLS.size());
+
+        String targetURL =targetURLS.get(i);
+        log.info("请求的目标地址为:{}",targetURL);
         // 用HTTP GET方法去请求，并且返回一个对象
         UserDTO userDTO = this.restTemplate.getForObject(
                 targetURL,
