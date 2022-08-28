@@ -1,1 +1,4 @@
-com\itmuch\usercenter\UserCenterApplication.class
+com\itmuch\contentcenter\ContentCenterApplication.class
+com\itmuch\contentcenter\domain\entity\content\Share.class
+com\itmuch\contentcenter\TestController.class
+com\itmuch\contentcenter\dao\content\ShareMapper.class
